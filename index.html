@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Gran Fiesta — Guion para Niños</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amarillo:  #FFD166;
+    --naranja:   #FF9F43;
+    --rojo:      #EE4B2B;
+    --verde:     #06D6A0;
+    --azul:      #118AB2;
+    --morado:    #9B5DE5;
+    --rosa:      #F72585;
+    --crema:     #FFF8EE;
+    --cafe:      #5C3D2E;
+    --gris:      #6B5E52;
+
+    --narrador-bg:   #FFF3CD;
+    --narrador-bdr:  #FFD166;
+    --narrador-txt:  #7A5A00;
+
+    --profe-bg:      #E8F5E9;
+    --profe-bdr:     #06D6A0;
+    --profe-txt:     #1B5E3B;
+
+    --pregunta-bg:   #EDE7F6;
+    --pregunta-bdr:  #9B5DE5;
+    --pregunta-txt:  #4A148C;
+
+    --accion-bg:     #E3F2FD;
+    --accion-bdr:    #118AB2;
+    --accion-txt:    #0D3B5E;
+
+    --coro-bg:       #FCE4EC;
+    --coro-bdr:      #F72585;
+    --coro-txt:      #880E4F;
+
+    --dialogo-rico:  #FFF3E0;
+    --dialogo-rico-bdr: #FF9F43;
+
+    --dialogo-inv:   #FBE9E7;
+    --dialogo-inv-bdr: #EE4B2B;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--crema);
+    color: var(--cafe);
+    overflow-x: hidden;
+  }
+
+  /* ── FONDO ── */
+  .fondo-patron {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--crema);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,209,102,0.18) 0%, transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(6,214,160,0.15) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(155,93,229,0.08) 0%, transparent 60%);
+    transition: background-color 0.8s ease;
+  }
+
+  .confetti-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .confetti-dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: flotar var(--dur, 8s) var(--delay, 0s) ease-in-out infinite alternate;
+  }
+
+  @keyframes flotar {
+    0%   { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-60px) rotate(180deg); }
+  }
+
+  /* ── BARRA DE PROGRESO ── */
+  .progreso {
+    position: fixed;
+    top: 0; left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--amarillo), var(--naranja), var(--rosa));
+    z-index: 1000;
+    transition: width 0.1s linear;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ── NAV LATERAL ── */
+  .nav-lateral {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(92,61,46,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .nav-dot.activo {
+    background: var(--naranja);
+    border-color: var(--cafe);
+    transform: scale(1.4);
+  }
+
+  .nav-dot:hover { background: var(--naranja); transform: scale(1.2); }
+
+  /* ── CONTENEDOR PRINCIPAL ── */
+  .contenedor {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* ── PORTADA ── */
+  .portada {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    gap: 20px;
+    position: relative;
+  }
+
+  .portada-globos {
+    font-size: 64px;
+    letter-spacing: 10px;
+    animation: subir 3.5s ease-in-out infinite;
+  }
+
+  @keyframes subir {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-18px); }
+  }
+
+  .portada h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: clamp(38px, 9vw, 68px);
+    font-weight: 800;
+    color: var(--cafe);
+    line-height: 1.05;
+  }
+
+  .portada h1 .acento {
+    color: var(--naranja);
+  }
+
+  .portada-subtitulo {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gris);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .portada-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 2px solid var(--amarillo);
+    border-radius: 40px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cafe);
+    box-shadow: 3px 3px 0 var(--amarillo);
+  }
+
+  .flecha-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(92,61,46,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    animation: pulso 2s ease-in-out infinite;
+  }
+
+  @keyframes pulso {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+
+  .flecha-scroll .arr {
+    font-size: 22px;
+    animation: rebotar 1.4s ease-in-out infinite;
+  }
+
+  @keyframes rebotar {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(7px); }
+  }
+
+  /* ── SECCIONES ── */
+  .seccion {
+    padding: 72px 0 20px;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .seccion.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── CABECERA DE PARTE ── */
+  .parte-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+    border: 2px solid rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .parte-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.12);
+    pointer-events: none;
+  }
+
+  .parte-icono {
+    font-size: 48px;
+    flex-shrink: 0;
+    filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.2));
+  }
+
+  .parte-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .parte-etiqueta {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .parte-titulo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 26px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    text-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .parte-tiempo {
+    margin-left: auto;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  /* ── BLOQUES ── */
+  .bloque {
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  .bloque.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .bloque-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .bloque-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+    background: white;
+    border: 2px solid rgba(92,61,46,0.12);
+    box-shadow: 2px 3px 0 rgba(92,61,46,0.08);
+    transition: transform 0.25s ease;
+  }
+
+  .bloque:hover .bloque-avatar {
+    transform: scale(1.12) rotate(-5deg);
+  }
+
+  .burbuja {
+    flex: 1;
+    border-radius: 6px 18px 18px 18px;
+    padding: 11px 16px;
+    border-left: 4px solid;
+  }
+
+  .burbuja-nombre {
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .burbuja-texto {
+    font-size: 15px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  /* Estilos de personajes */
+  .narrador .burbuja    { background: var(--narrador-bg); border-color: var(--narrador-bdr); }
+  .narrador .burbuja-nombre { color: var(--narrador-txt); }
+  .narrador .burbuja-texto  { color: var(--cafe); }
+
+  .rico .burbuja        { background: var(--dialogo-rico); border-color: var(--dialogo-rico-bdr); }
+  .rico .burbuja-nombre { color: #7A3D00; }
+  .rico .burbuja-texto  { color: var(--cafe); }
+
+  .invitado .burbuja      { background: var(--dialogo-inv); border-color: var(--dialogo-inv-bdr); }
+  .invitado .burbuja-nombre { color: #8B1C0C; }
+  .invitado .burbuja-texto  { color: var(--cafe); }
+
+  /* ── BLOQUES ESPECIALES ── */
+  .card-especial {
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border-left: 5px solid;
+  }
+
+  .card-especial .icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .card-especial .etiqueta {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .card-especial .contenido {
+    font-size: 14px;
+    line-height: 1.65;
+    font-weight: 500;
+  }
+
+  .card-especial.pregunta   { background: var(--pregunta-bg); border-color: var(--pregunta-bdr); }
+  .card-especial.pregunta .etiqueta   { color: var(--pregunta-txt); }
+  .card-especial.pregunta .contenido  { color: var(--pregunta-txt); }
+
+  .card-especial.accion     { background: var(--accion-bg); border-color: var(--accion-bdr); }
+  .card-especial.accion .etiqueta     { color: var(--accion-txt); }
+  .card-especial.accion .contenido    { color: var(--accion-txt); }
+
+  .card-especial.coro       { background: var(--coro-bg); border-color: var(--coro-bdr); }
+  .card-especial.coro .etiqueta       { color: var(--coro-txt); }
+  .card-especial.coro .contenido      { color: var(--coro-txt); }
+
+  .card-especial.profe      { background: var(--profe-bg); border-color: var(--profe-bdr); }
+  .card-especial.profe .etiqueta      { color: var(--profe-txt); }
+  .card-especial.profe .contenido     { color: var(--profe-txt); }
+
+  /* ── SFX ── */
+  .sfx {
+    text-align: center;
+    font-family: 'Baloo 2', cursive;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--naranja);
+    background: white;
+    border: 2px dashed var(--amarillo);
+    border-radius: 40px;
+    padding: 10px 24px;
+    margin: 16px auto;
+    display: inline-block;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    box-shadow: 3px 3px 0 var(--amarillo);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: default;
+  }
+
+  .sfx:hover {
+    transform: translateX(-50%) scale(1.06) rotate(-1deg);
+    box-shadow: 5px 5px 0 var(--naranja);
+  }
+
+  /* ── DIVISOR ── */
+  .divisor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+    opacity: 0.35;
+  }
+
+  .divisor-linea {
+    flex: 1;
+    height: 1px;
+    background: var(--cafe);
+  }
+
+  .divisor-texto {
+    font-size: 14px;
+    color: var(--cafe);
+    letter-spacing: 4px;
+  }
+
+  /* ── LEYENDA ── */
+  .leyenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 40px;
+  }
+
+  .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gris);
+    background: white;
+    border-radius: 20px;
+    padding: 5px 12px;
+    border: 1.5px solid rgba(92,61,46,0.12);
+  }
+
+  .leyenda-punto {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── SECCIÓN FINAL ── */
+  .seccion-final {
+    text-align: center;
+    padding: 80px 0 40px;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .seccion-final.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .final-emoji {
+    font-size: 72px;
+    animation: subir 3s ease-in-out infinite;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .final-titulo {
+    font-family: 'Baloo 2', cursive;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--cafe);
+    margin-bottom: 28px;
+  }
+
+  .final-card {
+    background: white;
+    border-radius: 24px;
+    padding: 32px 28px;
+    border: 2px solid var(--amarillo);
+    box-shadow: 6px 6px 0 var(--amarillo);
+    text-align: left;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .final-intro {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gris);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .final-linea {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(92,61,46,0.12);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cafe);
+  }
+
+  .final-linea:last-of-type { border-bottom: none; }
+
+  .final-linea .ico { font-size: 22px; flex-shrink: 0; }
+
+  .final-frase {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #FFF3CD, #FFDDB3);
+    border-radius: 16px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--cafe);
+    text-align: center;
+    line-height: 1.5;
+    border: 2px solid var(--naranja);
+  }
+
+  @media (max-width: 560px) {
+    .nav-lateral { display: none; }
+    .portada h1 { font-size: clamp(32px, 10vw, 50px); }
+    .parte-tiempo { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progreso" id="progreso"></div>
+
+<!-- Fondo -->
+<div class="fondo-patron" id="fondo"></div>
+<div class="confetti-wrap" id="confetti"></div>
+
+<!-- Nav lateral -->
+<nav class="nav-lateral" id="navLateral"></nav>
+
+<div class="contenedor">
+
+  <!-- ══ PORTADA ══ -->
+  <div class="portada" id="portada">
+    <div class="portada-globos">🎈🎉🎈</div>
+    <h1>La <span class="acento">Gran</span><br>Fiesta</h1>
+    <p class="portada-subtitulo">Guion para clase · Lucas 14:15–24</p>
+    <div class="portada-chip">
+      🎒 Niños de 6 a 9 años &nbsp;·&nbsp; ⏱ ~20 min
+    </div>
+
+    <div class="leyenda">
+      <div class="leyenda-item"><div class="leyenda-punto" style="background:var(--morado)"></div> Pregunta</div>
+      <div class="leyenda-item"><div class="leyenda-punto" style="background:var(--azul)"></div> Acción</div>
+      <div class="leyenda-item"><div class="leyenda-punto" style="background:var(--rosa)"></div> Coro</div>
+      <div class="leyenda-item"><div class="leyenda-punto" style="background:var(--verde)"></div> Nota del profe</div>
+    </div>
+
+    <div class="flecha-scroll">
+      <span>¡Empecemos!</span>
+      <span class="arr">↓</span>
+    </div>
+  </div>
+
+  <!-- ══ PARTE 1: APERTURA ══ -->
+  <div class="divisor"><div class="divisor-linea"></div><div class="divisor-texto">✦ ✦ ✦</div><div class="divisor-linea"></div></div>
+  <section class="seccion" id="parte1">
+    <div class="parte-header" style="background: linear-gradient(135deg, #FF9F43, #FFD166);">
+      <div class="parte-icono">🎈</div>
+      <div class="parte-meta">
+        <div class="parte-etiqueta">Parte 1</div>
+        <div class="parte-titulo">¡Bienvenida a la fiesta!</div>
+      </div>
+      <div class="parte-tiempo">~3 min</div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto"><em>(Señala los globos y la decoración con cara muy emocionada)</em><br>
+          ¡Hola a todos! ¿Ya vieron esto? ¡El salón está decorado porque HOY tenemos una fiesta especial! Bueno, bueno... no van a comer torta ahora mismo, pero SÍ van a escuchar la historia de la fiesta más épica de todos los tiempos. ¡Y Jesús mismo fue quien la contó!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial pregunta">
+      <div class="icon">🙋</div>
+      <div>
+        <div class="etiqueta">Pregunta</div>
+        <div class="contenido">¿Alguna vez han ido a una fiesta? ¿Qué fue lo más rico que comieron? <em>(Deja que dos o tres niños respondan rápido)</em></div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">¡Qué delicia! Pues la historia que vamos a escuchar hoy es de alguien que organizó la fiesta MÁS grande que puedan imaginar. Pero con un problemita... ¡nadie quería ir! ¿Cómo así? ¡Vamos a descubrir qué pasó!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PARTE 2: LA HISTORIA ══ -->
+  <div class="divisor"><div class="divisor-linea"></div><div class="divisor-texto">✦ ✦ ✦</div><div class="divisor-linea"></div></div>
+  <section class="seccion" id="parte2">
+    <div class="parte-header" style="background: linear-gradient(135deg, #118AB2, #06D6A0);">
+      <div class="parte-icono">📜</div>
+      <div class="parte-meta">
+        <div class="parte-etiqueta">Parte 2</div>
+        <div class="parte-titulo">El hombre de la gran fiesta</div>
+      </div>
+      <div class="parte-tiempo">~8 min</div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">Había una vez un hombre muy, muy rico. Tan rico que podía comprar todo lo que quisiera. Y un día decidió: <em>"¡Voy a hacer la fiesta más grande del mundo!"</em> Así que llamó a su criado —que era como su ayudante de confianza— y le dijo:</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque rico">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🤵</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">El hombre rico</div>
+          <div class="burbuja-texto">"Escucha bien: ve por toda la ciudad e invita a TODOS mis amigos. ¡Diles que la fiesta está lista! Hay comida para todos, música, y lo mejor de lo mejor. ¡Que no falte nadie!"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial accion">
+      <div class="icon">🏃</div>
+      <div>
+        <div class="etiqueta">Acción</div>
+        <div class="contenido">Pídeles que imiten al criado caminando apurado por la ciudad repartiendo invitaciones. <em>"¡Venga todo el mundo, hay fiesta!"</em></div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">Entonces el criado salió corriendo a repartir las invitaciones. Toc toc toc. Primero fue a la casa del señor González. ¿Saben qué dijo?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque invitado">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">😑</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Primer invitado — cara de aburrido</div>
+          <div class="burbuja-texto">"Uy... es que acabo de comprar un terreno y TENGO que ir a verlo. Lo siento mucho. No puedo ir."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">¡Un terreno! ¡Prefirió irse a mirar tierra antes que ir a la fiesta! El criado no podía creerlo, pero siguió. Fue a la casa del señor Martínez. ¿Y qué dijo ese?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque invitado">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🧑‍🌾</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Segundo invitado — voz muy seria</div>
+          <div class="burbuja-texto">"Es que compré cinco bueyes y tengo que ir a probarlos. No, no puedo ir. Discúlpame."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial pregunta">
+      <div class="icon">🙋</div>
+      <div>
+        <div class="etiqueta">Pregunta</div>
+        <div class="contenido">¿Qué es un buey? <em>(Espera respuestas)</em> ¡Exacto, como una vaca grandota! ¡Este señor prefirió ir a ver sus vacas gigantes antes que ir a la fiesta!</div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">El criado seguía sin poder creerlo. Fue a la última casa, la del señor Rodríguez. Este al menos tenía una razón un poco más simpática...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque invitado">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">💍</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Tercer invitado — algo tímido</div>
+          <div class="burbuja-texto">"Es que me casé hace poquito y... pues mi esposa y yo queremos quedarnos en casa. No voy a poder ir. Pero gracias, ¿eh?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial coro">
+      <div class="icon">🎭</div>
+      <div>
+        <div class="etiqueta">Coro</div>
+        <div class="contenido">¿Cómo creen que se sentía el criado? ¡Vamos a hacer cara de criado decepcionado! <em>(Haz la cara tú primero, exageradamente. Los niños te imitarán.)</em></div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">El criado volvió a la casa del hombre rico con las manos vacías y le contó todo. ¿Y saben qué? ¡El hombre rico se enojó muuuucho! Pero en vez de cancelar la fiesta, hizo algo increíble:</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque rico">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🤵</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">El hombre rico</div>
+          <div class="burbuja-texto">"¿Que no quieren venir? ¡Perfecto! Sal ahora mismo a las calles y las plazas. Y trae a los pobres, a los que están enfermos, a los que no tienen casa, a los que nadie invita a nada. ¡La fiesta no se cancela!"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial accion">
+      <div class="icon">😮</div>
+      <div>
+        <div class="etiqueta">Acción</div>
+        <div class="contenido">Pídeles que se imaginen: "Si de repente alguien los invitara a la fiesta más grande del mundo, ¿qué cara pondrían?" <em>(Deja que hagan sus caras de sorpresa y emoción.)</em></div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">¡Y eso fue exactamente lo que pasó! Llegaron personas que nunca en su vida habían sido invitadas a nada especial. Y el hombre rico los recibió a todos con los brazos abiertos. ¡La fiesta siguió! Y los que dijeron que no... esos nunca pudieron entrar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sfx">🎉 &nbsp; ¡La fiesta comenzó! &nbsp; 🎊</div>
+  </section>
+
+  <!-- ══ PARTE 3: REFLEXIÓN ══ -->
+  <div class="divisor"><div class="divisor-linea"></div><div class="divisor-texto">✦ ✦ ✦</div><div class="divisor-linea"></div></div>
+  <section class="seccion" id="parte3">
+    <div class="parte-header" style="background: linear-gradient(135deg, #9B5DE5, #F72585);">
+      <div class="parte-icono">💡</div>
+      <div class="parte-meta">
+        <div class="parte-etiqueta">Parte 3</div>
+        <div class="parte-titulo">¿Qué nos dice Jesús?</div>
+      </div>
+      <div class="parte-tiempo">~5 min</div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">Cuando Jesús contó esta historia, no estaba hablando solo de una fiesta con pastel y globos —aunque eso suena increíble. Jesús estaba hablando de algo mucho más grande: ¡Dios nos está invitando a estar con Él para siempre!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">✝️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Lo que Jesús quería que entendiéramos</div>
+          <div class="burbuja-texto">El hombre rico de la historia es como Dios. La gran fiesta es el cielo. Y las invitaciones... ¡son para todos nosotros!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial pregunta">
+      <div class="icon">🙋</div>
+      <div>
+        <div class="etiqueta">Pregunta</div>
+        <div class="contenido">¿Por qué creen que los invitados dijeron que no? ¿Qué eligieron antes que la fiesta? <em>(Espera respuestas: el terreno, los bueyes, quedarse en casa.)</em><br><br>¿Y a ustedes qué cosas los podrían distraer de poner a Dios primero?</div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">Quizás no elegiríamos un buey en vez de Dios... ¡aunque los bueyes son muy grandes y llamativos! Pero a veces elegimos los videojuegos, el celular, o simplemente decimos "luego, luego". Y Jesús nos recuerda: ¡no te pierdas la mejor invitación de tu vida!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial profe">
+      <div class="icon">📝</div>
+      <div>
+        <div class="etiqueta">Nota del profe</div>
+        <div class="contenido">Este es un buen momento para hacer una pausa y conectar con la vida cotidiana de los niños. Puedes preguntarles si conocen a alguien que necesite escuchar esta invitación de Dios.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PARTE 4: CIERRE ══ -->
+  <div class="divisor"><div class="divisor-linea"></div><div class="divisor-texto">✦ ✦ ✦</div><div class="divisor-linea"></div></div>
+  <section class="seccion" id="parte4">
+    <div class="parte-header" style="background: linear-gradient(135deg, #06D6A0, #118AB2);">
+      <div class="parte-icono">🎯</div>
+      <div class="parte-meta">
+        <div class="parte-etiqueta">Parte 4</div>
+        <div class="parte-titulo">Tres cosas para recordar</div>
+      </div>
+      <div class="parte-tiempo">~3 min</div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">Antes de terminar, quiero que recuerden tres cosas muy importantes. Las vamos a decir juntos. Cuando yo cuente hasta tres y diga "¡ya!", ustedes repiten lo que digo. ¿Listos?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial coro">
+      <div class="icon">🎤</div>
+      <div>
+        <div class="etiqueta">Coro — ¡repitan conmigo!</div>
+        <div class="contenido">
+          <strong>1.</strong> "¡Dios nos invita a su fiesta!" <em>(que lo repitan)</em><br>
+          <strong>2.</strong> "¡Podemos decir que sí o que no!" <em>(que lo repitan)</em><br>
+          <strong>3.</strong> "¡Jesús no quiere que nos lo perdamos!" <em>(con emoción)</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloque narrador">
+      <div class="bloque-inner">
+        <div class="bloque-avatar">🎙️</div>
+        <div class="burbuja">
+          <div class="burbuja-nombre">Narrador</div>
+          <div class="burbuja-texto">Y hoy, cuando hagamos nuestra manualidad, quiero que piensen en alguien a quien le gustaría darle esa invitación. Porque igual que el criado de la historia, ¡nosotros también podemos contarles a otros sobre la gran fiesta de Dios!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-especial profe">
+      <div class="icon">📝</div>
+      <div>
+        <div class="etiqueta">Nota del profe</div>
+        <div class="contenido">Termina con una oración corta y sencilla, agradeciendo a Dios por invitarnos y pidiendo ayuda para nunca poner excusas. Luego pasa a la manualidad de la invitación.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FINAL ══ -->
+  <div class="divisor"><div class="divisor-linea"></div><div class="divisor-texto">✦ ✦ ✦</div><div class="divisor-linea"></div></div>
+  <section class="seccion-final" id="final">
+    <span class="final-emoji">🎊</span>
+    <div class="final-titulo">¡Fin de la clase!</div>
+    <div class="final-card">
+      <div class="final-intro">
+        Esta parábola la contó Jesús de Nazaret<br>para enseñarnos algo muy importante.
+      </div>
+      <div class="final-linea"><span class="ico">👑</span><span>Dios es como ese hombre rico.</span></div>
+      <div class="final-linea"><span class="ico">💌</span><span>Ya nos envió su invitación.</span></div>
+      <div class="final-linea"><span class="ico">🚫</span><span>No pongamos excusas.</span></div>
+      <div class="final-linea"><span class="ico">🎈</span><span>¡La fiesta más grande nos espera!</span></div>
+      <div class="final-frase">
+        "Siempre pon a Dios en primer lugar<br>y no te pierdas Su gran invitación." 🎉
+      </div>
+    </div>
+  </section>
+
+</div><!-- /contenedor -->
+
+<script>
+  // ── Confetti dots ──
+  const confetti = document.getElementById('confetti');
+  const colors = ['#FFD166','#FF9F43','#06D6A0','#9B5DE5','#F72585','#118AB2','#EE4B2B'];
+  const sizes  = [12, 16, 20, 24, 30];
+  for (let i = 0; i < 18; i++) {
+    const d = document.createElement('div');
+    d.className = 'confetti-dot';
+    const sz = sizes[Math.floor(Math.random() * sizes.length)];
+    d.style.cssText = `
+      width: ${sz}px; height: ${sz}px;
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * 100}vh;
+      background: ${colors[Math.floor(Math.random() * colors.length)]};
+      --dur: ${6 + Math.random() * 7}s;
+      --delay: ${Math.random() * 8}s;
+      animation-delay: var(--delay);
+      animation-duration: var(--dur);
+    `;
+    confetti.appendChild(d);
+  }
+
+  // ── Nav lateral dots ──
+  const secciones = [
+    { id: 'portada', label: 'Inicio' },
+    { id: 'parte1',  label: 'Apertura' },
+    { id: 'parte2',  label: 'Historia' },
+    { id: 'parte3',  label: 'Reflexión' },
+    { id: 'parte4',  label: 'Cierre' },
+    { id: 'final',   label: 'Final' },
+  ];
+
+  const navEl = document.getElementById('navLateral');
+  secciones.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'nav-dot';
+    d.title = s.label;
+    d.dataset.target = s.id;
+    d.addEventListener('click', () => {
+      document.getElementById(s.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    navEl.appendChild(d);
+  });
+
+  // ── Barra de progreso ──
+  const barra = document.getElementById('progreso');
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    barra.style.width = (window.scrollY / total * 100) + '%';
+  }, { passive: true });
+
+  // ── Intersection Observer: fade-in + nav activo ──
+  const allSecs = document.querySelectorAll('.seccion, .seccion-final, .portada');
+  const navDots  = document.querySelectorAll('.nav-dot');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.add('visible');
+
+      const id = entry.target.id;
+      navDots.forEach(d => d.classList.toggle('activo', d.dataset.target === id));
+
+      // Stagger de bloques internos
+      const bloques = entry.target.querySelectorAll('.bloque:not(.visible), .card-especial:not(.visible)');
+      bloques.forEach((b, i) => {
+        setTimeout(() => b.classList.add('visible'), i * 75);
+      });
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  allSecs.forEach(s => observer.observe(s));
+
+  // ── SFX hover ──
+  document.querySelectorAll('.sfx').forEach(el => {
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+</script>
+</body>
+</html>
